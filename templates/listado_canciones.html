@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+Listado de Canciones
+{% endblock %}
+
+{% block content %}
+    <a href="/login">Iniciar sesión</a> <!-- Botón para ir a la página de login -->
+    <a href="/">Inicio</a> <!-- Botón para ir a la página de login -->
+    <a href="/listado-canciones">listado Canciones</a> <!-- Botón para ir a la página de canciones -->
+
+
+
+<h2>Listado de Canciones</h2>
+<table id="tabla-canciones">
+    <thead>
+        <tr>
+            <th>ID Canción</th>
+            <th>Título</th>
+            <th>Artista/Autor</th>
+            <th>Idioma</th>
+            <th>Letra</th>
+            <!-- Añade más columnas si es necesario -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Los datos de las canciones se llenarán aquí -->
+    </tbody>
+</table>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('http://127.0.0.1:8000/canciones/')
+    .then(response => response.json())
+    .then(data => {
+        const tbody = document.getElementById('tabla-canciones').getElementsByTagName('tbody')[0];
+        data.forEach(cancion => {
+            const row = tbody.insertRow();
+            const cellIdCancion = row.insertCell();
+            cellIdCancion.textContent = cancion.id_cancion;
+            const cellTitulo = row.insertCell();
+            cellTitulo.textContent = cancion.titulo;
+            const cellArtista = row.insertCell();
+            cellArtista.textContent = cancion.artista;
+            const cellIdioma = row.insertCell();
+            cellIdioma.textContent = cancion.idioma;
+            const cellLetra = row.insertCell();
+            cellLetra.textContent = cancion.letra;
+
+        });
+    })
+    .catch(error => console.error('Error:', error));
+});
+</script>
+{% endblock %}

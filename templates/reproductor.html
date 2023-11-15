@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/">Inicio</a> <!-- Botón para ir a la página de inicio -->
+<a href="/listado-canciones">Listado de canciones</a> <!-- Botón para ir a la página de listado de canciones -->
+
+<div id="diapositiva-container">
+    <div id="diapositiva-actual">Cargando diapositivas...</div>
+    <br>
+    <div id="info-cancion">
+        <span id="titulo-cancion"></span> - <span id="artista-cancion"></span>
+    </div>
+</div>
+<div id="controles-reproductor">
+    <button id="anterior" disabled>Anterior</button>
+    <button id="siguiente" disabled>Siguiente</button>
+</div>
+
+<form id="idCancionForm">
+    <input type="text" id="idCancion" name="idCancion" placeholder="ID de la canción" required>
+    <button type="submit">Cargar Canción</button>
+</form>
+
+<script>
+// Variables globales para las diapositivas y los elementos de la interfaz de usuario
+let diapositivas = [];
+let indiceActual = 0;
+
+// Actualizar la diapositiva actual basándose en el índiceActual
+function actualizarDiapositiva() {
+    const diapositivaActualDiv = document.getElementById('diapositiva-actual');
+    // Reemplazar los saltos de línea por elementos <br>
+    diapositivaActualDiv.innerHTML = diapositivas[indiceActual].replace(/\n/g, '<br>');
+    document.getElementById('anterior').disabled = indiceActual === 0;
+    document.getElementById('siguiente').disabled = indiceActual === diapositivas.length - 1;
+}
+
+// Manejar el envío del formulario y cargar las diapositivas
+document.getElementById('idCancionForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const idCancion = document.getElementById('idCancion').value;
+
+    fetch(`http://127.0.0.1:8000/canciones/${idCancion}/diapositivas`)
+    .then(response => response.json())
+    .then(data => {
+        diapositivas = data.diapositivas;
+        document.getElementById('titulo-cancion').textContent = data.titulo;
+        document.getElementById('artista-cancion').textContent = data.artista;
+
+        // Reestablecer el índice y actualizar la interfaz
+        indiceActual = 0;
+        actualizarDiapositiva();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al cargar las diapositivas. Por favor, verifica que el ID es correcto.');
+    });
+});
+
+// Manejar clic en el botón "Anterior"
+document.getElementById('anterior').addEventListener('click', function() {
+    if (indiceActual > 0) {
+        indiceActual--;
+        actualizarDiapositiva();
+    }
+});
+
+// Manejar clic en el botón "Siguiente"
+document.getElementById('siguiente').addEventListener('click', function() {
+    if (indiceActual < diapositivas.length - 1) {
+        indiceActual++;
+        actualizarDiapositiva();
+    }
+});
+
+// Manejar las teclas de flecha para la navegación de diapositivas
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowLeft' && indiceActual > 0) {
+        indiceActual--;
+        actualizarDiapositiva();
+    } else if (event.key === 'ArrowRight' && indiceActual < diapositivas.length - 1) {
+        indiceActual++;
+        actualizarDiapositiva();
+    }
+});
+</script>
+{% endblock %}
