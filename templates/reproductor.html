@@ -15,6 +15,10 @@
     <button id="anterior" disabled>Anterior</button>
     <button id="siguiente" disabled>Siguiente</button>
 </div>
+<!-- Contenedor para selección de diapositivas -->
+<div id="seleccion-diapositivas">
+    <!-- Las cajas de selección de diapositivas se generarán aquí -->
+</div>
 
 <form id="idCancionForm">
     <input type="text" id="idCancion" name="idCancion" placeholder="ID de la canción" required>
@@ -50,6 +54,7 @@ document.getElementById('idCancionForm').addEventListener('submit', function(e) 
         // Reestablecer el índice y actualizar la interfaz
         indiceActual = 0;
         actualizarDiapositiva();
+        generarControlesDiapositivas(); // Generar los controles de selección de diapositivas
     })
     .catch(error => {
         console.error('Error:', error);
@@ -83,5 +88,39 @@ document.addEventListener('keydown', function(event) {
         actualizarDiapositiva();
     }
 });
+
+// Generar controles de selección de diapositivas
+function generarControlesDiapositivas() {
+    const seleccionDiv = document.getElementById('seleccion-diapositivas');
+    seleccionDiv.innerHTML = ''; // Limpia los controles existentes
+    diapositivas.forEach((diapositiva, index) => {
+        const diapositivaDiv = document.createElement('div');
+        // Usa innerHTML y reemplaza \n con <br> para mantener los saltos de línea
+        diapositivaDiv.innerHTML = diapositiva.replace(/\n/g, '<br>') || 'Sin texto';
+        diapositivaDiv.className = 'diapositiva-control';
+        diapositivaDiv.onclick = () => seleccionarDiapositiva(index);
+        seleccionDiv.appendChild(diapositivaDiv);
+    });
+
+    // Agrega la caja especial para la diapositiva sin texto
+    const diapositivaEspecialDiv = document.createElement('div');
+    diapositivaEspecialDiv.innerHTML = 'Especial'; // Aquí no hay saltos de línea
+    diapositivaEspecialDiv.className = 'diapositiva-control especial';
+    diapositivaEspecialDiv.onclick = () => seleccionarDiapositivaEspecial();
+    seleccionDiv.appendChild(diapositivaEspecialDiv);
+}
+
+// Función para manejar la selección de diapositiva
+function seleccionarDiapositiva(index) {
+    indiceActual = index;
+    actualizarDiapositiva();
+}
+
+// Función para la diapositiva especial sin texto
+function seleccionarDiapositivaEspecial() {
+    const diapositivaActualDiv = document.getElementById('diapositiva-actual');
+    diapositivaActualDiv.innerHTML = ''; // Limpia la diapositiva actual
+    // Restablece cualquier otro estado si es necesario
+}
 </script>
 {% endblock %}

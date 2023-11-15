@@ -34,7 +34,3 @@ Seguridad: Asegúrate de validar y sanitizar los valores del ID de la canción p
 @app.get("/reproductor")
 async def get_reproductor(request: Request):
     return templates.TemplateResponse("reproductor.html", {"request": request})
-
-
-
-"/canciones/{id_cancion}/diapositivas"
