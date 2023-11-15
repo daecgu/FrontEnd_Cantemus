@@ -54,9 +54,9 @@ function abrirVentanaEmergente() {
         // Contenido inicial de la ventana emergente
         ventanaEmergente.document.write(`
             <div id="diapositiva-container">
-                <div id="diapositiva-actual"></div> <!-- Removido el mensaje 'Cargando diapositivas...' -->
+                <div id="diapositiva-actual"></div>
                 <div id="info-cancion">
-                    <span id="titulo-cancion"></span> - <span id="artista-cancion"></span>
+                    <span id="titulo-cancion"></span><span id="artista-cancion"></span>
                 </div>
             </div>
             <style>
@@ -161,13 +161,6 @@ function generarControlesDiapositivas() {
 function seleccionarDiapositiva(index) {
     indiceActual = index;
     actualizarDiapositiva();
-}
-
-// Función para la diapositiva especial sin texto
-function seleccionarDiapositivaEspecial() {
-    const diapositivaActualDiv = document.getElementById('diapositiva-actual');
-    diapositivaActualDiv.innerHTML = ''; // Limpia la diapositiva actual
-    // Restablece cualquier otro estado si es necesario
 }
 </script>
 {% endblock %}
