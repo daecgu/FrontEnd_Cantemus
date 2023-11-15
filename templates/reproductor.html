@@ -1,4 +1,22 @@
 {% extends "base.html" %}
+{% block style %}
+        .diapositiva-control {
+            border: 1px solid #ccc; /* Borde gris claro */
+            padding: 5px; /* Espaciado interno */
+            margin: 5px; /* Espaciado externo */
+            cursor: pointer; /* Cambia el cursor a una mano para indicar que es clickeable */
+            display: inline-block; /* Asegura que las cajas se muestren en línea */
+            background-color: #f8f8f8; /* Fondo claro para las cajas */
+        }
+
+        .diapositiva-control:hover {
+            background-color: #e8e8e8; /* Cambia el fondo al pasar el mouse */
+        }
+
+        .diapositiva-control.especial {
+            /* Estilos adicionales para la caja 'Especial' si es necesario */
+        }
+{% endblock %}
 
 {% block content %}
 <a href="/">Inicio</a> <!-- Botón para ir a la página de inicio -->
