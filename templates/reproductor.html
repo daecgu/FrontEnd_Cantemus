@@ -7,15 +7,13 @@
             cursor: pointer; /* Cambia el cursor a una mano para indicar que es clickeable */
             display: inline-block; /* Asegura que las cajas se muestren en línea */
             background-color: #f8f8f8; /* Fondo claro para las cajas */
+            white-space: pre-wrap; /* Mantiene los saltos de línea y espacios */
         }
 
         .diapositiva-control:hover {
             background-color: #e8e8e8; /* Cambia el fondo al pasar el mouse */
         }
 
-        .diapositiva-control.especial {
-            /* Estilos adicionales para la caja 'Especial' si es necesario */
-        }
 {% endblock %}
 
 {% block content %}
@@ -47,14 +45,47 @@
 // Variables globales para las diapositivas y los elementos de la interfaz de usuario
 let diapositivas = [];
 let indiceActual = 0;
+let ventanaEmergente = null;
+
+// Función para abrir la ventana emergente
+function abrirVentanaEmergente() {
+    if (ventanaEmergente === null || ventanaEmergente.closed) {
+        ventanaEmergente = window.open("", "Reproductor", "width=800,height=600");
+        // Contenido inicial de la ventana emergente
+        ventanaEmergente.document.write(`
+            <div id="diapositiva-container">
+                <div id="diapositiva-actual"></div> <!-- Removido el mensaje 'Cargando diapositivas...' -->
+                <div id="info-cancion">
+                    <span id="titulo-cancion"></span> - <span id="artista-cancion"></span>
+                </div>
+            </div>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+                #diapositiva-container { text-align: center; }
+                #info-cancion { margin-top: 20px; }
+            </style>
+        `);
+        // Asegúrese de que la ventana emergente tenga tiempo para cargar antes de intentar actualizarla.
+        ventanaEmergente.onload = function() {
+            actualizarDiapositiva();
+        };
+    }
+}
 
 // Actualizar la diapositiva actual basándose en el índiceActual
 function actualizarDiapositiva() {
     const diapositivaActualDiv = document.getElementById('diapositiva-actual');
-    // Reemplazar los saltos de línea por elementos <br>
-    diapositivaActualDiv.innerHTML = diapositivas[indiceActual].replace(/\n/g, '<br>');
+    const nuevoContenido = diapositivas[indiceActual].replace(/\n/g, '<br>');
+    diapositivaActualDiv.innerHTML = nuevoContenido;
     document.getElementById('anterior').disabled = indiceActual === 0;
     document.getElementById('siguiente').disabled = indiceActual === diapositivas.length - 1;
+
+    // Si la ventana emergente está abierta, actualiza su contenido también
+    if (ventanaEmergente && !ventanaEmergente.closed) {
+        ventanaEmergente.document.getElementById('diapositiva-actual').innerHTML = nuevoContenido;
+        ventanaEmergente.document.getElementById('titulo-cancion').textContent = document.getElementById('titulo-cancion').textContent;
+        ventanaEmergente.document.getElementById('artista-cancion').textContent = document.getElementById('artista-cancion').textContent;
+    }
 }
 
 // Manejar el envío del formulario y cargar las diapositivas
@@ -62,15 +93,21 @@ document.getElementById('idCancionForm').addEventListener('submit', function(e) 
     e.preventDefault();
     const idCancion = document.getElementById('idCancion').value;
 
+    // Aquí se llama a la función abrirVentanaEmergente
+    abrirVentanaEmergente();
+
     fetch(`http://127.0.0.1:8000/canciones/${idCancion}/diapositivas`)
     .then(response => response.json())
     .then(data => {
-        diapositivas = data.diapositivas;
+        // Inserta una diapositiva en blanco al principio de la lista
+        diapositivas = [''].concat(data.diapositivas);
+        // O si prefieres añadirla al final, puedes usar: diapositivas.push('');
+
         document.getElementById('titulo-cancion').textContent = data.titulo;
         document.getElementById('artista-cancion').textContent = data.artista;
 
         // Reestablecer el índice y actualizar la interfaz
-        indiceActual = 0;
+        indiceActual = 0; // O `1` si quieres empezar por la primera diapositiva real
         actualizarDiapositiva();
         generarControlesDiapositivas(); // Generar los controles de selección de diapositivas
     })
@@ -113,19 +150,11 @@ function generarControlesDiapositivas() {
     seleccionDiv.innerHTML = ''; // Limpia los controles existentes
     diapositivas.forEach((diapositiva, index) => {
         const diapositivaDiv = document.createElement('div');
-        // Usa innerHTML y reemplaza \n con <br> para mantener los saltos de línea
-        diapositivaDiv.innerHTML = diapositiva.replace(/\n/g, '<br>') || 'Sin texto';
+        diapositivaDiv.innerHTML = diapositiva.replace(/\n/g, '<br>') || 'Sin texto'; // 'Sin texto' para diapositivas vacías
         diapositivaDiv.className = 'diapositiva-control';
         diapositivaDiv.onclick = () => seleccionarDiapositiva(index);
         seleccionDiv.appendChild(diapositivaDiv);
     });
-
-    // Agrega la caja especial para la diapositiva sin texto
-    const diapositivaEspecialDiv = document.createElement('div');
-    diapositivaEspecialDiv.innerHTML = 'Especial'; // Aquí no hay saltos de línea
-    diapositivaEspecialDiv.className = 'diapositiva-control especial';
-    diapositivaEspecialDiv.onclick = () => seleccionarDiapositivaEspecial();
-    seleccionDiv.appendChild(diapositivaEspecialDiv);
 }
 
 // Función para manejar la selección de diapositiva
