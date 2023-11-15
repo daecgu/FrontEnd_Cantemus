@@ -51,7 +51,8 @@ let ventanaEmergente = null;
 function abrirVentanaEmergente() {
     if (ventanaEmergente === null || ventanaEmergente.closed) {
         ventanaEmergente = window.open("", "Reproductor", "width=800,height=600");
-        // Contenido inicial de la ventana emergente
+
+        // Contenido inicial de la ventana emergente, incluido el botón de pantalla completa
         ventanaEmergente.document.write(`
             <div id="diapositiva-container">
                 <div id="diapositiva-actual"></div>
@@ -65,7 +66,6 @@ function abrirVentanaEmergente() {
                 #info-cancion { margin-top: 20px; }
             </style>
         `);
-        // Asegúrese de que la ventana emergente tenga tiempo para cargar antes de intentar actualizarla.
         ventanaEmergente.onload = function() {
             actualizarDiapositiva();
         };
