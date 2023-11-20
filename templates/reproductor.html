@@ -126,18 +126,42 @@ function abrirVentanaEmergente() {
 // Actualizar la diapositiva actual basándose en el índiceActual
 function actualizarDiapositiva() {
     const diapositivaActualDiv = document.getElementById('diapositiva-actual');
+    const tituloCancionDiv = document.getElementById('titulo-cancion');
+    const artistaCancionDiv = document.getElementById('artista-cancion');
     const nuevoContenido = diapositivas[indiceActual].replace(/\n/g, '<br>');
-    diapositivaActualDiv.innerHTML = nuevoContenido;
-    document.getElementById('anterior').disabled = indiceActual === 0;
-    document.getElementById('siguiente').disabled = indiceActual === diapositivas.length - 1;
 
-    // Si la ventana emergente está abierta, actualiza su contenido también
+    // Actualiza elementos en el documento principal
+    diapositivaActualDiv.innerHTML = nuevoContenido;
+    actualizarInfoCancion(tituloCancionDiv, artistaCancionDiv, diapositivas[indiceActual].trim() === '');
+
+    // Actualiza la ventana emergente si está abierta
     if (ventanaEmergente && !ventanaEmergente.closed) {
-        ventanaEmergente.document.getElementById('diapositiva-actual').innerHTML = nuevoContenido;
-        ventanaEmergente.document.getElementById('titulo-cancion').textContent = document.getElementById('titulo-cancion').textContent;
-        ventanaEmergente.document.getElementById('artista-cancion').textContent = document.getElementById('artista-cancion').textContent;
+        const ventanaDiapositivaActualDiv = ventanaEmergente.document.getElementById('diapositiva-actual');
+        const ventanaTituloCancionDiv = ventanaEmergente.document.getElementById('titulo-cancion');
+        const ventanaArtistaCancionDiv = ventanaEmergente.document.getElementById('artista-cancion');
+
+        ventanaDiapositivaActualDiv.innerHTML = nuevoContenido;
+        actualizarInfoCancion(ventanaTituloCancionDiv, ventanaArtistaCancionDiv, diapositivas[indiceActual].trim() === '');
+
+        // Asegúrate de actualizar también el texto del título y el artista
+        ventanaTituloCancionDiv.textContent = tituloCancionDiv.textContent;
+        ventanaArtistaCancionDiv.textContent = artistaCancionDiv.textContent;
     }
 }
+
+
+// Función auxiliar para actualizar la información de la canción
+function actualizarInfoCancion(tituloDiv, artistaDiv, esDiapositivaVacia) {
+    if (esDiapositivaVacia) {
+        tituloDiv.style.display = 'none';
+        artistaDiv.style.display = 'none';
+    } else {
+        tituloDiv.style.display = 'inline';
+        artistaDiv.style.display = 'inline';
+    }
+}
+
+
 
 // Manejar el envío del formulario y cargar las diapositivas
 document.getElementById('idCancionForm').addEventListener('submit', function(e) {
@@ -150,10 +174,7 @@ document.getElementById('idCancionForm').addEventListener('submit', function(e) 
     fetch(`http://127.0.0.1:8000/canciones/${idCancion}/diapositivas`)
     .then(response => response.json())
     .then(data => {
-        // Inserta una diapositiva en blanco al principio de la lista
         diapositivas = [''].concat(data.diapositivas);
-        // O si prefieres añadirla al final, puedes usar: diapositivas.push('');
-
         document.getElementById('titulo-cancion').textContent = data.titulo;
         document.getElementById('artista-cancion').textContent = data.artista;
 
