@@ -41,7 +41,58 @@
     <button type="submit">Cargar Canción</button>
 </form>
 
+<h2>Búsqueda de Canciones</h2>
+
+<!-- Campo de Búsqueda -->
+<div>
+    <input type="text" id="searchInput" placeholder="Buscar por título o letra...">
+    <button onclick="buscarCanciones()">Buscar</button>
+</div>
+
+<!-- Tabla de Resultados -->
+<table id="tabla-canciones">
+    <thead>
+        <tr>
+            <th>ID Canción</th>
+            <th>Título</th>
+            <th>Artista/Autor</th>
+            <th>Idioma</th>
+            <th>Letra</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Los datos de las canciones se llenarán aquí -->
+    </tbody>
+</table>
+
 <script>
+// Busqueda de canciones:
+function buscarCanciones() {
+    const query = document.getElementById('searchInput').value;
+    fetch(`http://127.0.0.1:8000/buscar-canciones-t-l/?query=${encodeURIComponent(query)}`)
+    .then(response => response.json())
+    .then(data => {
+        const tbody = document.getElementById('tabla-canciones').getElementsByTagName('tbody')[0];
+        tbody.innerHTML = ''; // Limpiar la tabla antes de añadir nuevos resultados
+        data.forEach(cancion => {
+            const row = tbody.insertRow();
+            const cellIdCancion = row.insertCell();
+            cellIdCancion.textContent = cancion.id_cancion;
+            const cellTitulo = row.insertCell();
+            cellTitulo.textContent = cancion.titulo;
+            const cellArtista = row.insertCell();
+            cellArtista.textContent = cancion.artista;
+            const cellIdioma = row.insertCell();
+            cellIdioma.textContent = cancion.idioma;
+            const cellLetra = row.insertCell();
+            cellLetra.textContent = cancion.letra;
+
+        });
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
 // Variables globales para las diapositivas y los elementos de la interfaz de usuario
 let diapositivas = [];
 let indiceActual = 0;
