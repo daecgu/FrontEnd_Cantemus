@@ -109,8 +109,8 @@ function abrirVentanaEmergente() {
                 <div id="diapositiva-actual"></div>
                 <div id="info-cancion">
                     <span id="titulo-cancion"></span><span id="artista-cancion"></span>
+                    <button id="boton-pantalla-completa" onclick="toggleFullScreen()" style="display: none;">Pantalla Completa</button>
                 </div>
-                <button onclick="toggleFullScreen()">Pantalla Completa</button> <!-- Botón agregado aquí -->
             </div>
             <style>
                 body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
@@ -169,9 +169,11 @@ function actualizarInfoCancion(tituloDiv, artistaDiv, esDiapositivaVacia) {
     if (esDiapositivaVacia) {
         tituloDiv.style.display = 'none';
         artistaDiv.style.display = 'none';
+        ventanaEmergente.document.getElementById('boton-pantalla-completa').style.display = 'block';
     } else {
         tituloDiv.style.display = 'inline';
         artistaDiv.style.display = 'inline';
+        ventanaEmergente.document.getElementById('boton-pantalla-completa').style.display = 'none';
     }
 }
 
