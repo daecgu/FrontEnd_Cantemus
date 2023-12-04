@@ -10,6 +10,16 @@
     </style>
 </head>
 <body>
+    <header class="text-gray-600 body-font">
+      <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+          <a href="/" class="mr-5 hover:text-gray-900">Inicio</a>
+          <a href="/listado-canciones" class="mr-5 hover:text-gray-900">Listado Canciones</a>
+          <a href="/reproductor" class="mr-5 hover:text-gray-900">Reproductor</a>
+          <a href="/login" class="mr-5 hover:text-gray-900">Iniciar Sesión</a>
+        </nav>
+      </div>
+    </header>
     {% block content %}
     {% endblock %}
     <footer>
