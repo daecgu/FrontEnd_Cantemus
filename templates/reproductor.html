@@ -14,39 +14,67 @@
             background-color: #e8e8e8; /* Cambia el fondo al pasar el mouse */
         }
 
+        #diapositiva-container {
+            font-size: 2em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;;
+            align-items: center;
+            border: 2px solid #000; /* Borde negro */
+            padding: 20px; /* Espacio interno */
+            margin: auto; /* Centra el div horizontalmente */
+            width: 50%; /* Ancho del contenedor, ajustable según tus necesidades */
+            height: 300px;
+            overflow: auto;
+            text-align: center; /* Alinea el texto al centro */
+        }
+
+        #info-cancion {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.8); // Fondo semitransparente
+            padding: 10px;
+            font-size: 2vw;
+        }
 {% endblock %}
 
 {% block content %}
+<br>
+<br>
+<form id="idCancionForm" align="center">
+    <input type="text" id="idCancion" name="idCancion" placeholder="ID de la canción" required>
+    <button type="submit">Cargar Canción</button>
+</form>
 
 <div id="diapositiva-container">
     <div id="diapositiva-actual">Cargando diapositivas...</div>
     <br>
     <div id="info-cancion">
-        <span id="titulo-cancion"></span> - <span id="artista-cancion"></span>
+        <span id="titulo-cancion">Titulo: </span><span id="artista-cancion">Artista: </span>
     </div>
 </div>
-<div id="controles-reproductor">
-    <button id="anterior" disabled>Anterior</button>
-    <button id="siguiente" disabled>Siguiente</button>
+<div id="controles-reproductor" align="center">
+    <button id="anterior">Anterior</button>
+    <button id="siguiente">Siguiente</button>
 </div>
 <!-- Contenedor para selección de diapositivas -->
 <div id="seleccion-diapositivas">
     <!-- Las cajas de selección de diapositivas se generarán aquí -->
 </div>
 
-<form id="idCancionForm">
-    <input type="text" id="idCancion" name="idCancion" placeholder="ID de la canción" required>
-    <button type="submit">Cargar Canción</button>
-</form>
+
 
 <h2>Búsqueda de Canciones</h2>
-
 <!-- Campo de Búsqueda -->
 <div>
     <input type="text" id="searchInput" placeholder="Buscar por título o letra...">
     <button onclick="buscarCanciones()">Buscar</button>
 </div>
 
+<br>
 <!-- Tabla de Resultados -->
 <table id="tabla-canciones">
     <thead>
