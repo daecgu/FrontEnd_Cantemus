@@ -108,7 +108,8 @@ function abrirVentanaEmergente() {
             <div id="diapositiva-container">
                 <div id="diapositiva-actual"></div>
                 <div id="info-cancion">
-                    <span id="titulo-cancion"></span><span id="artista-cancion"></span>
+                    <span id="titulo-cancion-container">Título: <span id="titulo-cancion"></span></span>
+                    <span id="artista-cancion-container">Artista: <span id="artista-cancion"></span></span>
                     <button id="boton-pantalla-completa" onclick="toggleFullScreen()" style="display: none;">Pantalla Completa</button>
                 </div>
             </div>
@@ -125,12 +126,27 @@ function abrirVentanaEmergente() {
                 }
                 #diapositiva-container { text-align: center; }
                 #info-cancion {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
                     position: fixed;
                     bottom: 0;
                     width: 100%;
                     background-color: rgba(255, 255, 255, 0.8); // Fondo semitransparente
-                    text-align: center;
                     padding: 10px;
+                    font-size: 2vw;
+                }
+                #titulo-cancion-container {
+                    text-align: left;
+                    flex-grow: 1;
+                }
+                #artista-cancion-container {
+                    text-align: right;
+                    flex-grow: 1;
+                    margin-right: 40px;
+                    overflow: hidden; // Evita que el contenido se desborde
+                    text-overflow: ellipsis; // Muestra puntos suspensivos si el texto se desborda
+                    white-space: nowrap; //
                 }
             </style>
         `);
@@ -182,16 +198,20 @@ function actualizarDiapositiva() {
 
 // Función auxiliar para actualizar la información de la canción
 function actualizarInfoCancion(tituloDiv, artistaDiv, esDiapositivaVacia) {
+    const tituloContainer = ventanaEmergente.document.getElementById('titulo-cancion-container');
+    const artistaContainer = ventanaEmergente.document.getElementById('artista-cancion-container');
+
     if (esDiapositivaVacia) {
-        tituloDiv.style.display = 'none';
-        artistaDiv.style.display = 'none';
+        tituloContainer.style.display = 'none';
+        artistaContainer.style.display = 'none';
         ventanaEmergente.document.getElementById('boton-pantalla-completa').style.display = 'block';
     } else {
-        tituloDiv.style.display = 'inline';
-        artistaDiv.style.display = 'inline';
+        tituloContainer.style.display = 'block';
+        artistaContainer.style.display = 'block';
         ventanaEmergente.document.getElementById('boton-pantalla-completa').style.display = 'none';
     }
 }
+
 
 
 
