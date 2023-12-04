@@ -110,6 +110,7 @@ function abrirVentanaEmergente() {
                 <div id="info-cancion">
                     <span id="titulo-cancion"></span><span id="artista-cancion"></span>
                 </div>
+                <button onclick="toggleFullScreen()">Pantalla Completa</button> <!-- Botón agregado aquí -->
             </div>
             <style>
                 body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
@@ -117,11 +118,24 @@ function abrirVentanaEmergente() {
                 #info-cancion { margin-top: 20px; }
             </style>
         `);
+
+        // Función para activar el modo de pantalla completa en la ventana emergente
+        ventanaEmergente.toggleFullScreen = function() {
+            if (!ventanaEmergente.document.fullscreenElement) {
+                ventanaEmergente.document.documentElement.requestFullscreen();
+            } else {
+                if (ventanaEmergente.document.exitFullscreen) {
+                    ventanaEmergente.document.exitFullscreen();
+                }
+            }
+        };
+
         ventanaEmergente.onload = function() {
             actualizarDiapositiva();
         };
     }
 }
+
 
 // Actualizar la diapositiva actual basándose en el índiceActual
 function actualizarDiapositiva() {
