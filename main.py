@@ -1,6 +1,11 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 import httpx
+import os
+
+# Es preciso indicarle una url de backend, sino utilizara 127.0.0.1:10000
+BASE_URL = os.getenv('BASE_URL', 'http://127.0.0.1:10000/')
+
 
 """uvicorn main:app --reload --port 3000"""
 app = FastAPI()
@@ -14,7 +19,7 @@ async def read_root(request: Request):
 
 @app.get("/listado-canciones")
 async def get_listado_canciones(request: Request):
-    return templates.TemplateResponse("listado_canciones.html", {"request": request})
+    return templates.TemplateResponse("listado_canciones.html", {"request": request, "base_url": BASE_URL})
 
 
 """
@@ -33,4 +38,4 @@ Seguridad: Asegúrate de validar y sanitizar los valores del ID de la canción p
 
 @app.get("/reproductor")
 async def get_reproductor(request: Request):
-    return templates.TemplateResponse("reproductor.html", {"request": request})
+    return templates.TemplateResponse("reproductor.html", {"request": request, "base_url": BASE_URL})

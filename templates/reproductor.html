@@ -95,7 +95,7 @@
 // Busqueda de canciones:
 function buscarCanciones() {
     const query = document.getElementById('searchInput').value;
-    fetch(`http://127.0.0.1:8000/buscar-canciones-t-l/?query=${encodeURIComponent(query)}`)
+    fetch(`{{ base_url }}buscar-canciones-t-l/?query=${encodeURIComponent(query)}`)
     .then(response => response.json())
     .then(data => {
         const tbody = document.getElementById('tabla-canciones').getElementsByTagName('tbody')[0];
@@ -249,7 +249,7 @@ document.getElementById('idCancionForm').addEventListener('submit', function(e) 
     // Aquí se llama a la función abrirVentanaEmergente
     abrirVentanaEmergente();
 
-    fetch(`http://127.0.0.1:8000/canciones/${idCancion}/diapositivas`)
+    fetch(`{{ base_url }}canciones/${idCancion}/diapositivas`)
     .then(response => response.json())
     .then(data => {
         diapositivas = [''].concat(data.diapositivas);
