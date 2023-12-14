@@ -14,6 +14,7 @@ Listado de Canciones
             <th>Título</th>
             <th>Artista/Autor</th>
             <th>Idioma</th>
+            <th>Temática</th>
             <th>Letra</th>
             <!-- Añade más columnas si es necesario -->
         </tr>
@@ -39,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
             cellArtista.textContent = cancion.artista;
             const cellIdioma = row.insertCell();
             cellIdioma.textContent = cancion.idioma;
+            const cellTematica = row.insertCell();
+            cellTematica.textContent = cancion.tematica;
             const cellLetra = row.insertCell();
             cellLetra.textContent = cancion.letra;
 

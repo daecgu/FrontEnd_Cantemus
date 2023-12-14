@@ -51,7 +51,7 @@
         </form>
 
     <div id="diapositiva-container">
-        <div id="diapositiva-actual">Cargando diapositivas...</div>
+        <div id="diapositiva-actual"></div>
         <br>
         <div id="info-cancion">
             <span id="titulo-cancion">Titulo: </span><span id="artista-cancion">Artista: </span>
@@ -85,6 +85,7 @@
             <th>Título</th>
             <th>Artista/Autor</th>
             <th>Idioma</th>
+            <th>Temática</th>
             <th>Letra</th>
         </tr>
     </thead>
@@ -112,6 +113,8 @@ function buscarCanciones() {
             cellArtista.textContent = cancion.artista;
             const cellIdioma = row.insertCell();
             cellIdioma.textContent = cancion.idioma;
+            const cellTematica = row.insertCell();
+            cellTematica.textContent = cancion.tematica;
             const cellLetra = row.insertCell();
             cellLetra.textContent = cancion.letra;
 
