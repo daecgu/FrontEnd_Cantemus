@@ -1,0 +1,69 @@
+/* AQUÍ TRABAJAMOS LOS BOTONES DE LA BARRA DE NAVEGACIÓN */
+.container {
+  max-width: 1200px; /* Ancho máximo del contenedor */
+  margin: auto; /* Centrado horizontal */
+  padding: 2%; /* Espaciado interno proporcional al ancho de la pantalla */
+  display: flex; /* Habilita flexbox */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan si no caben */
+}
+
+.navigation {
+  width: 100%; /* Asume el ancho completo del contenedor */
+  display: flex; /* Habilita flexbox */
+  justify-content: space-around; /* Distribuye el espacio alrededor de los elementos */
+  align-items: center; /* Alinea los elementos verticalmente */
+}
+
+.header-button {
+  background-color: #276749; /* Color de fondo verde oscuro */
+  border: 2px solid #276749; /* Borde del mismo color verde oscuro */
+  color: white; /* Texto en blanco */
+  font-weight: bold; /* Negrita para el texto */
+  padding: 1vw; /* Espaciado interno proporcional al ancho de la pantalla */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor en forma de mano al pasar por encima */
+  text-decoration: none; /* Sin subrayado */
+  margin: 1vw; /* Margen alrededor de los botones proporcional al ancho de la pantalla */
+  width: 15vw; /* Ancho fijo para todos los botones basado en el texto más largo */
+  min-width: 120px; /* Ancho mínimo en píxeles para evitar que sean demasiado pequeños */
+  text-align: center; /* Asegura que el texto dentro del botón esté centrado */
+  box-sizing: border-box; /* Asegura que el padding y border se incluyan en el ancho total */
+}
+
+.header-button:hover {
+  background-color: #1f4e3e; /* Un color verde más oscuro al pasar por encima */
+}
+
+@media (max-width: 768px) {
+  .header-button {
+    width: 80%; /* Ancho de botón más amplio para pantallas pequeñas */
+    margin: 1vw auto; /* Centra los botones horizontalmente con margen automático */
+    padding: 2vw; /* Mayor padding vertical */
+  }
+}
+
+/* AQUÍ TRABAJAMOS EL PIE DE PÁGINA Y EL BODY*/
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Usa el 100% del viewport height */
+}
+
+.content {
+  flex: 1; /* Asegura que el contenido expanda para llenar el espacio disponible */
+}
+
+footer {
+  width: 100%;
+  height: 50px; /* Altura fija del footer */
+  background-color: #276749; /* Color de fondo verde oscuro para el footer */
+  color: white; /* Color del texto */
+  text-align: center; /* Centra el texto */
+  line-height: 50px; /* Centra el texto verticalmente */
+}

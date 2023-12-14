@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 import httpx
 import os
 
@@ -9,6 +10,7 @@ BASE_URL = os.getenv('BASE_URL', 'http://127.0.0.1:10000/')
 
 """uvicorn main:app --reload --port 3000"""
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
