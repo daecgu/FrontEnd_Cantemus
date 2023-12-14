@@ -61,7 +61,7 @@ body {
 
 footer {
   width: 100%;
-  height: 50px; /* Altura fija del footer */
+  height: 100px; /* Altura fija del footer */
   background-color: #276749; /* Color de fondo verde oscuro para el footer */
   color: white; /* Color del texto */
   text-align: center; /* Centra el texto */
