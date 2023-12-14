@@ -44,7 +44,7 @@
 {% block content %}
 <br>
 <br>
-<div align="center">
+<div align="center" id="Previsualizador">
         <form id="idCancionForm">
             <input type="text" id="idCancion" name="idCancion" placeholder="ID de la canción" required>
             <button type="submit">Cargar Canción</button>
@@ -57,28 +57,29 @@
             <span id="titulo-cancion">Titulo: </span><span id="artista-cancion">Artista: </span>
         </div>
     </div>
-    <div id="controles-reproductor" align="center">
-        <button id="anterior">Anterior</button>
-        <button id="siguiente">Siguiente</button>
+        <div id="controles-reproductor" align="center">
+            <button id="anterior">Anterior</button>
+            <button id="siguiente">Siguiente</button>
+        </div>
     </div>
-    </div>
-    <!-- Contenedor para selección de diapositivas -->
-<div id="seleccion-diapositivas">
+
+
+<div id="seleccion-diapositivas" align="center">
     <!-- Las cajas de selección de diapositivas se generarán aquí -->
 </div>
 
 
-
-<h2>Búsqueda de Canciones</h2>
-<!-- Campo de Búsqueda -->
-<div>
-    <input type="text" id="searchInput" placeholder="Buscar por título o letra...">
-    <button onclick="buscarCanciones()">Buscar</button>
+<div align="center">
+    <h2>Búsqueda de Canciones</h2>
+    <!-- Campo de Búsqueda -->
+    <div>
+        <input type="text" id="searchInput" placeholder="Buscar por título o letra...">
+        <button onclick="buscarCanciones()">Buscar</button>
+    </div>
 </div>
-
 <br>
 <!-- Tabla de Resultados -->
-<table id="tabla-canciones">
+<table id="tabla-canciones" align="center">
     <thead>
         <tr>
             <th>ID Canción</th>
