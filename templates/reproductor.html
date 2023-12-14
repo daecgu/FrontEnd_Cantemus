@@ -44,23 +44,25 @@
 {% block content %}
 <br>
 <br>
-<form id="idCancionForm">
-    <input type="text" id="idCancion" name="idCancion" placeholder="ID de la canción" required>
-    <button type="submit">Cargar Canción</button>
-</form>
+<div align="center">
+        <form id="idCancionForm">
+            <input type="text" id="idCancion" name="idCancion" placeholder="ID de la canción" required>
+            <button type="submit">Cargar Canción</button>
+        </form>
 
-<div id="diapositiva-container">
-    <div id="diapositiva-actual">Cargando diapositivas...</div>
-    <br>
-    <div id="info-cancion">
-        <span id="titulo-cancion">Titulo: </span><span id="artista-cancion">Artista: </span>
+    <div id="diapositiva-container">
+        <div id="diapositiva-actual">Cargando diapositivas...</div>
+        <br>
+        <div id="info-cancion">
+            <span id="titulo-cancion">Titulo: </span><span id="artista-cancion">Artista: </span>
+        </div>
     </div>
-</div>
-<div id="controles-reproductor" align="center">
-    <button id="anterior">Anterior</button>
-    <button id="siguiente">Siguiente</button>
-</div>
-<!-- Contenedor para selección de diapositivas -->
+    <div id="controles-reproductor" align="center">
+        <button id="anterior">Anterior</button>
+        <button id="siguiente">Siguiente</button>
+    </div>
+    </div>
+    <!-- Contenedor para selección de diapositivas -->
 <div id="seleccion-diapositivas">
     <!-- Las cajas de selección de diapositivas se generarán aquí -->
 </div>
