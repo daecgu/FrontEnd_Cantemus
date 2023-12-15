@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 import httpx
 import os
 
-# Es preciso indicarle una url de backend, sino utilizara 127.0.0.1:10000
+# Es preciso indicarle una url de backend, sinó utilizará 127.0.0.1:10000
 BASE_URL = os.getenv('BASE_URL', 'http://127.0.0.1:10000/')
 
 
@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 async def read_root(request: Request):
-    return (templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.get("/login")
@@ -39,7 +39,8 @@ Estilos y Pantalla Completa: Para los botones de control de pantalla completa y 
 necesitarás añadir lógica adicional en JavaScript para manejar estos casos. 
 Además, para el estilo y la funcionalidad de pantalla completa, 
 podrías necesitar algo de CSS adicional y usar la API de pantalla completa de HTML5.
-Seguridad: Asegúrate de validar y sanitizar los valores del ID de la canción para prevenir vulnerabilidades de seguridad.
+Seguridad: Asegúrate de validar y sanitizar los valores del ID de la canción para prevenir 
+vulnerabilidades de seguridad.
 """
 
 
