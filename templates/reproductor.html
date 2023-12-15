@@ -59,6 +59,7 @@
     </div>
         <div id="controles-reproductor" align="center">
             <button id="anterior">Anterior</button>
+            <button id="sin-texto">SIN TEXTO</button>
             <button id="siguiente">Siguiente</button>
         </div>
     </div>
@@ -108,6 +109,8 @@ function buscarCanciones() {
             const row = tbody.insertRow();
             const cellIdCancion = row.insertCell();
             cellIdCancion.textContent = cancion.id_cancion;
+            cellIdCancion.style.fontWeight = 'bold'; // Aplica negrita
+            cellIdCancion.style.textAlign = 'center'; // Centra el texto
             const cellTitulo = row.insertCell();
             cellTitulo.textContent = cancion.titulo;
             const cellArtista = row.insertCell();
@@ -279,6 +282,12 @@ document.getElementById('anterior').addEventListener('click', function() {
         indiceActual--;
         actualizarDiapositiva();
     }
+});
+
+// Manejar clic en el botón "sin-texto"
+document.getElementById('sin-texto').addEventListener('click', function() {
+    indiceActual = 0;
+    actualizarDiapositiva();
 });
 
 // Manejar clic en el botón "Siguiente"
