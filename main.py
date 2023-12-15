@@ -19,7 +19,7 @@ async def read_root(request: Request):
     return (templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.get("/login"))
+@app.get("/login")
 async def ir_al_login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request, "base_url": BASE_URL})
 
