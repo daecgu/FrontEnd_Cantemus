@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<div align="center">
+    <h1>Realiza tu Login</h1>
+    <form id="loginForm">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <p id="errorMessage" style="color: red;"></p>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const username = formData.get('username');
+    const password = formData.get('password');
+
+    try {
+        const token = await login(username, password);
+        localStorage.setItem('token', token);
+        // Redirigir al usuario a la página principal o protegida
+        window.location.href = '/ruta_protegida';
+    } catch (error) {
+        document.getElementById('errorMessage').textContent = error.message;
+    }
+});
+
+async function login(username, password) {
+    const response = await fetch('/token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            'username': username,
+            'password': password
+        })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+        return data.access_token;
+    } else {
+        throw new Error(data.detail || 'Failed to login');
+    }
+}
+</script>
+{% endblock %}

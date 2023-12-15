@@ -16,7 +16,12 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return (templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.get("/login"))
+async def ir_al_login(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request, "base_url": BASE_URL})
 
 
 @app.get("/listado-canciones")
