@@ -1,7 +1,44 @@
 {% extends "base.html" %}
 {% block style %}
-    <link rel="stylesheet" href="{{ url_for('static', path='/reproductor.css') }}">
+.diapositiva-control {
+    border: 1px solid #ccc; /* Borde gris claro */
+    padding: 5px; /* Espaciado interno */
+    margin: 5px; /* Espaciado externo */
+    cursor: pointer; /* Cambia el cursor a una mano para indicar que es clickeable */
+    display: inline-block; /* Asegura que las cajas se muestren en línea */
+    background-color: #f8f8f8; /* Fondo claro para las cajas */
+    white-space: pre-wrap; /* Mantiene los saltos de línea y espacios */
+}
 
+.diapositiva-control:hover {
+    background-color: #e8e8e8; /* Cambia el fondo al pasar el mouse */
+}
+
+#diapositiva-container {
+    font-size: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;;
+    align-items: center;
+    border: 2px solid #000; /* Borde negro */
+    padding: 20px; /* Espacio interno */
+    margin: auto; /* Centra el div horizontalmente */
+    width: 50%; /* Ancho del contenedor, ajustable según tus necesidades */
+    height: 300px;
+    overflow: auto;
+    text-align: center; /* Alinea el texto al centro */
+}
+
+#info-cancion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+    padding: 10px;
+    font-size: 2vw;
+}
 {% endblock %}
 
 {% block content %}

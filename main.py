@@ -29,6 +29,10 @@ async def get_listado_canciones(request: Request):
     return templates.TemplateResponse("listado_canciones.html", {"request": request, "base_url": BASE_URL})
 
 
+@app.get("/reproductor")
+async def get_reproductor(request: Request):
+    return templates.TemplateResponse("reproductor.html", {"request": request, "base_url": BASE_URL})
+
 """
 Estado de Sincronización: Si abres la ventana del reproductor más de una vez y cambias de diapositiva en una, 
 no se actualizará automáticamente en las otras ventanas a menos que implementes una forma de sincronización de estado,
@@ -42,8 +46,3 @@ podrías necesitar algo de CSS adicional y usar la API de pantalla completa de H
 Seguridad: Asegúrate de validar y sanitizar los valores del ID de la canción para prevenir 
 vulnerabilidades de seguridad.
 """
-
-
-@app.get("/reproductor")
-async def get_reproductor(request: Request):
-    return templates.TemplateResponse("reproductor.html", {"request": request, "base_url": BASE_URL})
